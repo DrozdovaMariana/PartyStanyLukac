@@ -1,17 +1,8 @@
-import React, { Component } from 'react';
-
+import { Component } from 'react';
 import logo from '../images/logo.webp';
 
-interface IProps {
-
-}
-
-export default class NavMenu extends Component<IProps> {
+export default class NavMenu extends Component {
     static displayName = NavMenu.name;
-
-    constructor(props: IProps) {
-        super(props);
-    }
 
     render() {
         return (

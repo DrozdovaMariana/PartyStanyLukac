@@ -1,17 +1,8 @@
 ﻿import{ Component } from 'react';
-
 import baner from '../../images/baner.webp';
 
-interface IProps {
-
-}
-
-export default class Header extends Component<IProps> {
+export default class Header extends Component {
     static displayName = Header.name;
-
-    constructor(props: IProps) {
-        super(props);
-    }
 
     render() {
         return (

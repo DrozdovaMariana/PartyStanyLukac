@@ -1,15 +1,7 @@
 ﻿import { Component } from 'react';
 
-interface IProps {
-
-}
-
-export default class Notice extends Component<IProps> {
+export default class Notice extends Component {
     static displayName = Notice.name;
-
-    constructor(props: IProps) {
-        super(props);
-    }
 
     render() {
         return (
@@ -18,11 +10,10 @@ export default class Notice extends Component<IProps> {
                     <h2 className="display-2 text-center">Neprehliadnite naše akcie, zľavy a dôležité informácie...</h2>
                     <div className="alert alert-warning" role="alert">
                         <h4 className="alert-heading">Zľava</h4>
-                        <span>Ak si na vašej párty, na naše stany, umiestnite náš reklamný banner, získate&nbsp;<strong>10%</strong>&nbsp;zľavu pri nákupe! </span>
+                        <span>Ak si na vašej párty, na naše stany, umiestnite náš reklamný banner, získate&nbsp;<strong>10%</strong>&nbsp;zľavu pri nákupe!</span>
                     </div>
                     <div className="alert alert-info" role="alert">
-                        <h4 className="alert-heading">Preprava</h4><span>V prípade záujmu zabezpečujeme dovoz/ odvoz tovaru. Účtovaná cena je&nbsp;<strong>0,40€</strong> za <strong>1km</strong> cesty.
-                        </span>
+                        <h4 className="alert-heading">Preprava</h4><span>V prípade záujmu zabezpečujeme dovoz/ odvoz tovaru. Účtovaná cena je&nbsp;<strong>0,40€</strong> za <strong>1km</strong> cesty.</span>
                     </div>
                 </div>
                 <div className="text-center mt-auto p-3">
