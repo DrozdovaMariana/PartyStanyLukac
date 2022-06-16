@@ -1,0 +1,25 @@
+
+{
+  "data":[
+     {
+        "id":54522,
+        "src":"https://fakeimg.pl/350x200/?text=World&font=lobster",
+        "alt":"some image",
+        "title":"I am fabulous product",
+        "stock":4,
+        "price":789,
+        "montage":445,
+        "order":5
+     },
+     {
+        "id":4521355454,
+        "src":"https://fakeimg.pl/250x100/ff0000",
+        "alt":"some image 2",
+        "title":"I am another fabulous product",
+        "stock":4,
+        "price":444,
+        "montage":445,
+        "order":4
+     }
+  ]
+}
