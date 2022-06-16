@@ -1,94 +1,102 @@
-﻿import { Component } from 'react';
-
+﻿import { useState, useEffect } from 'react';
 import Product from '../../components/Product';
 
-interface IProps {
-
+export interface IProduct {
+  id?: number;
+  src: string;
+  alt: string;
+  title: string;
+  stock?: number;
+  price: number;
+  montage?: number;
+  order?: number;
 }
 
-interface IState {
-    products: IProduct[],
-    loading: boolean
-}
+const ProductList = () => {
+  const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
+  const [products, setProducts] = useState([]);
 
-interface IProduct {
-    id: number,
-    src: string,
-    alt: string,
-    title: string,
-    stock?: number,
-    price: number,
-    montage?: number,
-    order: number
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      // use mockdata.json in https://mocki.io/ service and replace url below
+      const data = await fetch(
+        'https://mocki.io/v1/52846bb4-9b11-40a2-948a-d3aaaa3c5ce9'
+      );
+      if (data.ok) {
+        const productData = await data.json();
+        setProducts(productData.data);
+      } else {
+        setFailed(true);
+      }
+    };
 
-export default class ProductList extends Component<IProps, IState> {
-    static displayName = ProductList.name;
+    fetchData();
+    setLoading(false);
 
-    constructor(props: IProps) {
-        super(props);
-        this.state = {
-            products: [],
-            loading: true
-        };
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    _renderProductList(products: IProduct[]) {
-        if (!products)
-            return null;
-
-        return (
-            <div className="row g-0">
-                {products.map(product =>
-                    <div key={product.id.toString()} className="col-12 col-md-6 col-lg-4 p-1">
-                        <Product
-                            src={product.src}
-                            alt={product.alt}
-                            title={product.title}
-                            stock={product.stock}
-                            price={product.price}
-                            montage={product.montage} />
-                    </div>
-                )}
-            </div>
-        );
-    }
-
-    async _downloadDataProducts() {
-        const response = await fetch('api/products');
-
-        let data = [];
-        if (response.ok)
-            data = await response.json();
-
-        this.setState({
-            products: data,
-            loading: false
-        });
-    }
-
-    componentDidMount() {
-        this._downloadDataProducts();
-    }
-
-    render() {
-        const contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : this._renderProductList(this.state.products);
-
-        return (
-            <section id="products">
-                <div className="container">
-                    {contents}
+  if (loading) {
+    return (
+      <p>
+        <em>Loading...</em>
+      </p>
+    );
+  }
+  if (failed) {
+    return (
+      <p>
+        <em>Fetching data failed...</em>
+      </p>
+    );
+  }
+  if (products.length) {
+    return (
+      <section id="products">
+        <div className="container">
+          <div className="row g-0">
+            {products.map(
+              ({ id, src, alt, title, stock, price, montage }: IProduct) => (
+                <div key={id} className="col-12 col-md-6 col-lg-4 p-1">
+                  <Product
+                    src={src}
+                    alt={alt}
+                    title={title}
+                    stock={stock}
+                    price={price}
+                    montage={montage}
+                  />
                 </div>
-                <div className="text-center p-3">
-                    <a className="btn btn-outline-warning btn-lg" role="button" href="#contact">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" className="bi bi-chevron-down">
-                            <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
-                        </svg>
-                    </a>
-                </div>
-            </section>
-        );
-    }
-}
+              )
+            )}{' '}
+          </div>
+        </div>
+        <div className="text-center p-3">
+          <a
+            className="btn btn-outline-warning btn-lg"
+            role="button"
+            href="#contact"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="1em"
+              height="1em"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              className="bi bi-chevron-down"
+            >
+              <path
+                fillRule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </section>
+    );
+  }
+  return null;
+};
+
+export default ProductList;
